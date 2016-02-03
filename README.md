@@ -38,7 +38,7 @@ use Trexology\Pointable\Contracts\Pointable;
 use Trexology\Pointable\Traits\Pointable as PointableTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model implements Pointable
+class User extends Model implements Pointable
 {
     use PointableTrait;
 }

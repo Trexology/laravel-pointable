@@ -4,7 +4,7 @@ namespace Trexology\Pointable\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Points extends Model
+class Transaction extends Model
 {
     /**
      * @var string
@@ -26,6 +26,26 @@ class Points extends Model
 
     /**
      * @param Model $pointable
+     *
+     * @return static
+     */
+    public function getCurrentPoints(Model $pointable)
+    {
+        $currentPoint = Transaction::select('current')
+        ->where('pointable_id', $pointable->id)
+        ->where('pointable_type', get_class($pointable))
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        if (!$currentPoint) {
+          $currentPoint = 0;
+        }
+
+        return $currentPoint;
+    }
+
+    /**
+     * @param Model $pointable
      * @param $amount
      * @param $message
      * @param $data
@@ -37,8 +57,7 @@ class Points extends Model
         $transaction = new static();
         $transaction->$amount = $amount;
 
-        $pointable->currentPoints += $amount;
-        $transaction->currentPoints = $pointable->$currentAmount;
+        $transaction->currentPoints = $this->getCurrentPoints($pointable) + $amount;
 
         $transaction->$message = $message;
         if ($data) {

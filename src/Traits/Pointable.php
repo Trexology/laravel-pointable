@@ -2,7 +2,7 @@
 
 namespace Trexology\Pointable\Traits;
 
-use Trexology\Pointable\Models\Point;
+use Trexology\Pointable\Models\Transaction;
 use Illuminate\Database\Eloquent\Model;
 
 trait Pointable
@@ -52,18 +52,27 @@ trait Pointable
     //         ->selectRaw('SUM(rating) as sumReviewRateable')
     //         ->pluck('sumReviewRateable');
     // }
+    //
+    // /**
+    //  * @param $max
+    //  *
+    //  * @return mix
+    //  */
+    // public function ratingPercent($max = 5)
+    // {
+    //     $ratings = $this->ratings();
+    //     $quantity = $ratings->count();
+    //     $total = $ratings->selectRaw('SUM(rating) as total')->pluck('total');
+    //     return ($quantity * $max) > 0 ? $total / (($quantity * $max) / 100) : 0;
+    // }
 
     /**
-     * @param $max
      *
-     * @return mix
+     * @return double
      */
-    public function ratingPercent($max = 5)
+    public function currentPoints()
     {
-        $ratings = $this->ratings();
-        $quantity = $ratings->count();
-        $total = $ratings->selectRaw('SUM(rating) as total')->pluck('total');
-        return ($quantity * $max) > 0 ? $total / (($quantity * $max) / 100) : 0;
+        return (new Transaction())->getCurrentPoints($this);
     }
 
     /**
@@ -75,6 +84,6 @@ trait Pointable
      */
     public function addPoints($amount, $message, $data = null)
     {
-        return (new Point())->addTransaction($this, $amount, $message, $data = null);
+        return (new Transaction())->addTransaction($this, $amount, $message, $data = null);
     }
 }

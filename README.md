@@ -49,10 +49,13 @@ class User extends Model implements Pointable
 $user = User::first();
 $amount = 10; // (Double) Can be a negative value
 $message = "The reason for this transaction";
+
+//Optional (if you modify the point_transaction table)
 $data = [
     'ref_id' => 'Ifje23',
-  ] //Optional (if you modify the point_transaction table)
-$transaction = $user->addPoint(amount,$message,$data);
+];
+
+$transaction = $user->addPoints($amount,$message,$data);
 
 dd($transaction);
 ```

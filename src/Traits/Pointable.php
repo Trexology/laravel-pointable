@@ -12,7 +12,7 @@ trait Pointable
      */
     public function transactions()
     {
-        return $this->morphMany(Point::class, 'pointable');
+        return $this->morphMany(Transaction::class, 'pointable');
     }
 
     // /**

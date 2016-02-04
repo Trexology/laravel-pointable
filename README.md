@@ -66,7 +66,7 @@ $user = User::first();
 $user->transactions;
 
 //OR
-//$user['transactions'] = $user->transactions(2)->get(); //Get last 2 transaction
+//$user['transactions'] = $user->transactions(2)->get(); //Get last 2 transactions
 
 dd($user);
 ```

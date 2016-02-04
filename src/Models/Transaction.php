@@ -29,21 +29,20 @@ class Transaction extends Model
      *
      * @return static
      */
-    public function getCurrentPoints(Model $pointable)
-    {
-        $trans = Transaction::
-        where('pointable_id', $pointable->id)
-        ->where('pointable_type', get_class($pointable))
-        ->orderBy('created_at', 'desc')
-        ->first(['current']);
+     public function getCurrentPoints(Model $pointable)
+     {
+         $currentPoint = Transaction::
+         where('pointable_id', $pointable->id)
+         ->where('pointable_type', get_class($pointable))
+         ->orderBy('created_at', 'desc')
+         ->pluck('current');
 
-        $currentPoint = $trans->current;
-        if (!$currentPoint) {
-          $currentPoint = 0.0;
-        }
+         if (!$currentPoint) {
+           $currentPoint = 0.0;
+         }
 
-        return $currentPoint;
-    }
+         return $currentPoint;
+     }
 
     /**
      * @param Model $pointable

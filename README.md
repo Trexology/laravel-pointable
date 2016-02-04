@@ -52,10 +52,29 @@ $message = "The reason for this transaction";
 
 //Optional (if you modify the point_transaction table)
 $data = [
-    'ref_id' => 'Ifje23',
+    'ref_id' => 'someReferId',
 ];
 
 $transaction = $user->addPoints($amount,$message,$data);
 
 dd($transaction);
+```
+
+### Get Transactions
+```php
+$user = User::first();
+$user->transactions;
+
+//OR
+//$user['transactions'] = $user->transactions(2)->get(); //Get last 2 transaction
+
+dd($user);
+```
+
+### Count Transactions
+```php
+$user = User::first();
+$user['transactions_total'] = $user->countTransactions();
+
+dd($user);
 ```

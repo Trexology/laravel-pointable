@@ -31,14 +31,15 @@ class Transaction extends Model
      */
     public function getCurrentPoints(Model $pointable)
     {
-        $currentPoint = Transaction::select('current')
-        ->where('pointable_id', $pointable->id)
+        $trans = Transaction::
+        where('pointable_id', $pointable->id)
         ->where('pointable_type', get_class($pointable))
         ->orderBy('created_at', 'desc')
-        ->first();
+        ->first(['current']);
 
+        $currentPoint = $trans->current;
         if (!$currentPoint) {
-          $currentPoint = 0;
+          $currentPoint = 0.0;
         }
 
         return $currentPoint;
@@ -57,7 +58,7 @@ class Transaction extends Model
         $transaction = new static();
         $transaction->amount = $amount;
 
-        $transaction->currentPoints = $this->getCurrentPoints($pointable) + $amount;
+        $transaction->current = $this->getCurrentPoints($pointable) + $amount;
 
         $transaction->message = $message;
         if ($data) {

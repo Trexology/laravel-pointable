@@ -15,26 +15,33 @@ interface Pointable
     //  *
     //  * @return mix
     //  */
-    // public function averageRating($round= null);
+    // public function averagePoint($round= null);
     //
     // /**
     //  *
     //  * @return mix
     //  */
-    // public function countRating();
+    // public function countPoint();
     //
     // /**
     //  *
     //  * @return mix
     //  */
-    // public function sumRating();
+    // public function sumPoint();
     //
     // /**
     //  * @param $max
     //  *
     //  * @return mix
     //  */
-    // public function ratingPercent($max = 5);
+    // public function pointPercent($max = 5);
+
+    /**
+     *
+     * @return mix
+     */
+    public function countTransactions();
+
 
     /**
      * @param $amount

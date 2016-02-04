@@ -10,47 +10,47 @@ trait Pointable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function transactions()
+    public function transactions($amount = null)
     {
-        return $this->morphMany(Transaction::class, 'pointable');
+        return $this->morphMany(Transaction::class, 'pointable')->orderBy('created_at','desc')->take($amount);
     }
 
     // /**
     //  *
     //  * @return mix
     //  */
-    // public function averageRating($round= null)
+    // public function averagePoint($round= null)
     // {
     //   if ($round) {
-    //         return $this->ratings()
-    //           ->selectRaw('ROUND(AVG(rating), '.$round.') as averageReviewRateable')
-    //           ->pluck('averageReviewRateable');
+    //         return $this->transactions()
+    //           ->selectRaw('ROUND(AVG(amount), '.$round.') as averagePointTransaction')
+    //           ->pluck('averagePointTransaction');
     //     }
     //
-    //     return $this->ratings()
-    //         ->selectRaw('AVG(rating) as averageReviewRateable')
-    //         ->pluck('averageReviewRateable');
+    //     return $this->transactions()
+    //         ->selectRaw('AVG(amount) as averagePointTransaction')
+    //         ->pluck('averagePointTransaction');
     // }
     //
     // /**
     //  *
     //  * @return mix
     //  */
-    // public function countRating(){
-    //   return $this->ratings()
-    //       ->selectRaw('count(rating) as countReviewRateable')
-    //       ->pluck('countReviewRateable');
+    // public function countPoint(){
+    //   return $this->transactions()
+    //       ->selectRaw('count(amount) as countTransactions')
+    //       ->pluck('countTransactions');
     // }
     //
     // /**
     //  *
     //  * @return mix
     //  */
-    // public function sumRating()
+    // public function sumPoint()
     // {
-    //     return $this->ratings()
-    //         ->selectRaw('SUM(rating) as sumReviewRateable')
-    //         ->pluck('sumReviewRateable');
+    //     return $this->transactions()
+    //         ->selectRaw('SUM(amount) as sumPointTransactions')
+    //         ->pluck('sumPointTransactions');
     // }
     //
     // /**
@@ -58,13 +58,22 @@ trait Pointable
     //  *
     //  * @return mix
     //  */
-    // public function ratingPercent($max = 5)
+    // public function pointPercent($max = 5)
     // {
-    //     $ratings = $this->ratings();
-    //     $quantity = $ratings->count();
-    //     $total = $ratings->selectRaw('SUM(rating) as total')->pluck('total');
+    //     $transactions = $this->transactions();
+    //     $quantity = $transactions->count();
+    //     $total = $transactions->selectRaw('SUM(amount) as total')->pluck('total');
     //     return ($quantity * $max) > 0 ? $total / (($quantity * $max) / 100) : 0;
     // }
+
+    /**
+     *
+     * @return mix
+     */
+    public function countTransactions(){
+      return $this->transactions()
+          ->count();
+    }
 
     /**
      *

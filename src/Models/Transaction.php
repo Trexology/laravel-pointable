@@ -55,11 +55,11 @@ class Transaction extends Model
     public function addTransaction(Model $pointable, $amount, $message, $data = null)
     {
         $transaction = new static();
-        $transaction->$amount = $amount;
+        $transaction->amount = $amount;
 
         $transaction->currentPoints = $this->getCurrentPoints($pointable) + $amount;
 
-        $transaction->$message = $message;
+        $transaction->message = $message;
         if ($data) {
           $transaction->fill($data);
         }

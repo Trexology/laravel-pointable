@@ -60,6 +60,14 @@ $transaction = $user->addPoints($amount,$message,$data);
 dd($transaction);
 ```
 
+### Get Current Points
+```php
+$user = User::first();
+$points = $user->currentPoints();
+
+dd($points);
+```
+
 ### Get Transactions
 ```php
 $user = User::first();

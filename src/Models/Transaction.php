@@ -35,7 +35,7 @@ class Transaction extends Model
          where('pointable_id', $pointable->id)
          ->where('pointable_type', get_class($pointable))
          ->orderBy('created_at', 'desc')
-         ->pluck('current');
+         ->lists('current')->first();
 
          if (!$currentPoint) {
            $currentPoint = 0.0;

@@ -33,7 +33,7 @@ class Transaction extends Model
      {
          $currentPoint = Transaction::
          where('pointable_id', $pointable->id)
-         ->where('pointable_type', get_class($pointable))
+         ->where('pointable_type', $pointable->getMorphClass())
          ->orderBy('created_at', 'desc')
          ->lists('current')->first();
 
